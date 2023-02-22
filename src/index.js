@@ -5,7 +5,38 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+class Clock extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {date:new Date()};
+    }
+
+    componentDidMount() {
+        this.ticker = setInterval(() => this.tick(), 1000);
+    }
+
+    componentWillMount() {
+        clearInterval(this.ticker)
+    }
+
+    tick(){
+        this.setState({
+            date:new Date()
+        });
+    }
+
+    render(){
+        return(
+          <div>
+              <h1>Aktuelle Uhrzeit: {this.state.date.toLocaleTimeString()}</h1>
+          </div>
+        );
+    }
+}
+
 root.render(
+    <Clock/>,
   <React.StrictMode>
     <App />
   </React.StrictMode>
